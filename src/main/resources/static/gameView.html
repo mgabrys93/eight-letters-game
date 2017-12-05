@@ -1,0 +1,72 @@
+<div  ng-show="!authenticated">
+    <p>Login to see this!</p>
+</div>
+<div ng-show="gameStarted">
+    <p>TOO MANY PLAYERS</p>
+</div>
+
+<div ng-show="authenticated && !gameStarted" ng-cloak class="ng-cloak">
+    <div class="col-md-3">
+        <h2>Your words:</h2>
+        <table class="table table-bordered">
+            <tbody>
+                <tr ng-repeat="w in words">
+                    <td>{{w}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <h2>Players:</h2>
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <td>USERNAME:</td>
+                    <td ng-repeat="playerName in playersNames" ng-if="playerName != username">{{playerName}}</td>
+                </tr>
+                <tr>
+                    <td>POINTS:</td>
+                    <td ng-repeat="playerName in playersNames" ng-if="playerName != username">{{players[playerName]}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div ng-show="isPlayersConnected && !isGameFinished">
+            <h2>Your letters:</h2>
+            <table class="table table-bordered">
+                <thred>
+                    <tr>
+                        <td class="text-center" ng-repeat="c in characterSet track by $index">{{c}}</td>
+                    </tr>
+                </thred>
+            </table>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <td>TIME:</td>
+                        <td>POINTS:</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{counter}}</td>
+                        <td>{{players[username]}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="error-message" ng-if="errorMessage.length > 0">{{errorMessage}}</h3>
+            <form name="wordSend" ng-submit="checkWord()">
+                <label for="wordsInput">Type Your Words:</label>
+                <input type="text" id="wordsInput" ng-model="word" ng-pattern="/^[a-z]*$/">
+                <button type="submit" class="btn btn-primary">Send</button>
+            </form>
+        </div>
+        <div ng-show="!isPlayersConnected">
+            <h2>WAITING FOR OTHER PLAYERS</h2>
+        </div>
+        <div ng-show="isPlayersConnected && isGameFinished">
+            <h2>{{winnerName}} : win game</h2>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,21 @@
+<div ng-controller="GameListController" ng-cloak class="ng-cloak container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Join</th>
+        </tr>
+        </thead>
+        <tbody ng-repeat="game in gameList">
+            <tr>
+                <th>
+                    <p>{{game.name}}</p>
+                </th>
+                <th>
+                    <button ng-click="go(game.id)" class="btn btn-primary">Join</button>
+                </th>
+            </tr>
+        </tbody>
+    </table>
+</div>
+

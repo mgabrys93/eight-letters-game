@@ -1,0 +1,37 @@
+
+<div  ng-show="!authenticated">
+    <p>Login to see this!</p>
+</div>
+<div ng-show="authenticated">
+    <form name="gameForm" role="form" ng-submit="newGameCtrl.createNewGame()" novalidate ng-class="{'form-error':submitted}">
+        <div class="form-group">
+            <label for="name">Game Name:</label>
+            <input type="text" required ng-minlength="3" ng-maxlength="10" class="form-control" id="name"
+                   name="name" ng-model="name"/>
+        </div>
+        <div ng-messages="gameForm.name.$error" ng-show="submitted && gameForm.name.$invalid" class="error-message">
+            <p ng-message="required">Name is required</p>
+            <p ng-message="minlength">Min 3 characters</p>
+            <p ng-message="maxlength">Max 10 characters</p>
+        </div>
+        <div class="form-group">
+            <label for="maxPlayers">Max Players:</label>
+            <input type="number" required min="1" max="5" step="1" value="2" class="form-control"
+                   id="maxPlayers" name="maxPlayers" ng-model="maxPlayers"/>
+        </div>
+        <div ng-messages="gameForm.maxPlayers.$error" ng-show="submitted && gameForm.maxPlayers.$invalid" class="error-message">
+            <p>Max players should be in range [1-5] inclusive</p>
+        </div>
+        <div class="form-group">
+            <label for="gameTime">Game Time:</label>
+            <input type="number" required min="30" max="150" step="10" value="120" class="form-control"
+                   id="gameTime" name="gameTime" ng-model="gameTime">
+        </div>
+        <div ng-messages="gameForm.gameTime.$error" ng-show="submitted && gameForm.gameTime.$invalid" class="error-message">
+            <p>Game Time should be in range [30-150] inclusive</p>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create Game</button>
+    </form>
+
+</div>
